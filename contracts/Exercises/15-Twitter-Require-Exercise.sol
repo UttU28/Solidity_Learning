@@ -7,6 +7,8 @@ pragma solidity ^0.8.0;
 
 contract Twitter {
 
+    // define our struct
+    uint16 constant maxTweetLength = 280;
     struct Tweet {
         address author;
         string content;
@@ -17,10 +19,9 @@ contract Twitter {
     // add our code
     mapping(address => Tweet[] ) public tweets;
 
+
     function createTweet(string memory _tweet) public {
-        // conditional
-        // if tweet length <= 280 then we are good, otherwise we revert
-        
+        require(bytes(_tweet).length <= maxTweetLength, "Tweet too long bruv");
 
         Tweet memory newTweet = Tweet({
             author: msg.sender,
@@ -28,11 +29,10 @@ contract Twitter {
             timestamp: block.timestamp,
             likes: 0
         });
-
         tweets[msg.sender].push(newTweet);
     }
 
-    function getTweet( uint _i) public view returns (Tweet memory) {
+    function getTweet(uint _i) public view returns (Tweet memory) {
         return tweets[msg.sender][_i];
     }
 

@@ -15,11 +15,8 @@ contract Twitter {
         uint256 timestamp;
         uint256 likes;
     }
-
-
     // add our code
     mapping(address => Tweet[] ) public tweets;
-
 
     function createTweet(string memory _tweet) public {
         Tweet memory newTweet = Tweet({
